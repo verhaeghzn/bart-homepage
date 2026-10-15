@@ -1,0 +1,99 @@
+---
+import '@fontsource-variable/fraunces/opsz.css';
+import '@fontsource-variable/fraunces/opsz-italic.css';
+import '@fontsource-variable/newsreader/opsz.css';
+import '@fontsource-variable/newsreader/opsz-italic.css';
+import '@fontsource/ibm-plex-mono/latin-400.css';
+import '@fontsource/ibm-plex-mono/latin-500.css';
+import '../styles/global.css';
+import { ClientRouter } from 'astro:transitions';
+import { site, sameAs } from '../data/site';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+
+interface Props {
+	title?: string;
+	description?: string;
+	ogType?: 'website' | 'article';
+	published?: Date;
+}
+
+const {
+	title,
+	description = site.description,
+	ogType = 'website',
+	published,
+} = Astro.props;
+
+const documentTitle = title ? `${title} — ${site.title}` : site.title;
+const canonical = new URL(Astro.url.pathname, site.url);
+const portraitUrl = new URL('/bart-verhaegh.jpg', site.url).href;
+
+const jsonLd = {
+	'@context': 'https://schema.org',
+	'@type': ogType === 'article' ? 'BlogPosting' : 'WebPage',
+	headline: documentTitle,
+	name: documentTitle,
+	description,
+	url: canonical.toString(),
+	...(published ? { datePublished: published.toISOString() } : {}),
+	author: {
+		'@type': 'Person',
+		name: site.name,
+		url: site.url,
+		image: portraitUrl,
+		email: `mailto:${site.email}`,
+		homeLocation: {
+			'@type': 'Place',
+			name: site.place,
+			address: {
+				'@type': 'PostalAddress',
+				addressLocality: 'Eindhoven',
+				addressCountry: 'NL',
+			},
+		},
+		sameAs,
+	},
+};
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>{documentTitle}</title>
+		<meta name="description" content={description} />
+		<link rel="canonical" href={canonical} />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="alternate" type="application/rss+xml" title={`${site.title} — RSS`} href="/rss.xml" />
+		<meta name="theme-color" content="#f4f0e8" media="(prefers-color-scheme: light)" />
+		<meta name="theme-color" content="#161311" media="(prefers-color-scheme: dark)" />
+		<meta property="og:title" content={documentTitle} />
+		<meta property="og:site_name" content={site.title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:type" content={ogType} />
+		<meta property="og:url" content={canonical} />
+		<meta property="og:locale" content="en_GB" />
+		<meta property="og:image" content={portraitUrl} />
+		<meta property="og:image:alt" content={site.name} />
+		<meta name="twitter:card" content="summary" />
+		<meta name="twitter:title" content={documentTitle} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={portraitUrl} />
+		<meta name="twitter:image:alt" content={site.name} />
+		<slot name="head" />
+		<script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+		<ClientRouter />
+	</head>
+	<body>
+		<a class="skip" href="#content">Skip to content</a>
+		<SiteHeader />
+		<main id="content">
+			<div class="shell">
+				<slot />
+			</div>
+		</main>
+		<SiteFooter />
+	</body>
+</html>

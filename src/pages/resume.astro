@@ -1,0 +1,153 @@
+---
+import Base from '../layouts/Base.astro';
+import ContactIcons from '../components/ContactIcons.astro';
+import ExternalLink from '../components/ExternalLink.astro';
+
+const pure = 'https://research.tue.nl/en/persons/bart-j-verhaegh/';
+const thesis =
+	'https://research.tue.nl/en/studentTheses/data-driven-homogenization-of-heterogeneous-micro-structures-usin/';
+const paper =
+	'https://research.tue.nl/en/publications/on-the-boundary-conditions-and-optimization-methods-in-integrated/';
+---
+
+<Base
+	title="Resume"
+	description="Brief resume of Bart Verhaegh: founder of Closure, doctoral researcher at TU/e, and partner in Verhaegh & Zn."
+>
+	<article class="resume">
+		<header class="page-head">
+			<p class="kicker">Resume</p>
+			<h1>The short version.</h1>
+			<p class="deck">
+				Founder of Closure, doctoral researcher at TU/e, and one half of Verhaegh &amp; Zn. The
+				research list that stays current is the PURE page.
+			</p>
+			<div class="contact">
+				<ContactIcons showAddress />
+				<ExternalLink href={pure} me>TU/e PURE</ExternalLink>
+			</div>
+		</header>
+
+		<section aria-labelledby="now-heading">
+			<h2 id="now-heading">Now</h2>
+			<article class="with-logo">
+				<div>
+					<h3>Founder, <ExternalLink href="https://closure.nl/" me>Closure</ExternalLink></h3>
+					<p class="entry-meta">Since 2017</p>
+					<p>
+						Writing software that gives bereaved families less to worry about and more space to grieve.
+						Next of kin report a death once and settle subscriptions, contracts and accounts with more
+						than 1,600 organisations, at no cost to the family.
+					</p>
+				</div>
+				<ExternalLink href="https://closure.nl/" class="org" me>
+					<img src="/logos/closure.svg" alt="" />
+					<span class="sr-only">Closure</span>
+				</ExternalLink>
+			</article>
+			<article class="with-logo">
+				<div>
+					<h3>
+						Doctoral researcher, <ExternalLink href={pure} me>TU/e</ExternalLink>
+					</h3>
+					<p class="entry-meta">Mechanics of Materials, Eindhoven University of Technology</p>
+					<p>
+						Teaching microscale mechanical experiments to run themselves, at a speed and accuracy where
+						a person becomes the limiting factor. The subject is second-phase particles in advanced
+						high-strength green steels, within the NWO project Particles on the Edge.
+					</p>
+				</div>
+				<ExternalLink href="https://www.tue.nl/" class="org org-tue" me>
+					<img src="/logos/tue.svg" alt="" />
+					<span class="sr-only">TU/e</span>
+				</ExternalLink>
+			</article>
+			<article>
+				<h3>
+					With Michel Verhaegh, <ExternalLink href="https://verhaeghzn.nl/" me>Verhaegh &amp; Zn.</ExternalLink>
+				</h3>
+				<p class="entry-meta">Since 2021</p>
+				<p>A father-and-son practice, where ideas become projects faster than is strictly sensible.</p>
+			</article>
+		</section>
+
+		<section aria-labelledby="earlier-heading">
+			<h2 id="earlier-heading">Earlier</h2>
+			<article class="with-logo">
+				<div>
+					<h3>Internship, <ExternalLink href="https://www.ramlab.com/" me>RAMLAB</ExternalLink></h3>
+					<p class="entry-meta">Rotterdam, 2019–2020</p>
+					<p>
+						During my internship at RAMLAB, I worked on advancing the understanding of thermomechanical
+						processes in WAAM (Wire Arc Additive Manufacturing) 3D printing. My primary focus was
+						validating industry-used thermomechanical FEM models by comparing their predictions to
+						real-world physical measurements from experiments I conducted. This hands-on experience
+						allowed me to bridge the gap between simulation and reality, contributing to improved
+						accuracy and reliability in 3D printing and offshore repair applications.
+					</p>
+				</div>
+				<ExternalLink href="https://www.ramlab.com/" class="org" me>
+					<img src="/logos/ramlab.svg" alt="" />
+					<span class="sr-only">RAMLAB</span>
+				</ExternalLink>
+			</article>
+		</section>
+
+		<section aria-labelledby="education-heading">
+			<h2 id="education-heading">Education</h2>
+			<article>
+				<h3>MSc Mechanical Engineering</h3>
+				<p class="entry-meta">Eindhoven University of Technology, 2020</p>
+				<p>
+					Thesis:
+					<ExternalLink href={thesis}>
+						Data-driven homogenization of heterogeneous micro-structures using neural networks
+					</ExternalLink>. Supervisor: Joris Remmers.
+				</p>
+			</article>
+			<article>
+				<h3>Pre-Master Data Science and Entrepreneurship</h3>
+				<p class="entry-meta">
+					<ExternalLink href="https://www.jads.nl/" me>Jheronimus Academy of Data Science</ExternalLink>,
+					2017–2018
+				</p>
+			</article>
+			<article>
+				<h3>BSc Mechanical Engineering</h3>
+				<p class="entry-meta">Eindhoven University of Technology</p>
+			</article>
+			<article>
+				<h3>
+					<ExternalLink
+						href="https://www.cambridgeenglish.org/exams-and-tests/qualifications/proficiency/"
+						me>Certificate of Proficiency in English</ExternalLink>
+				</h3>
+				<p class="entry-meta">Cambridge English, 2009</p>
+			</article>
+		</section>
+
+		<section aria-labelledby="work-heading">
+			<h2 id="work-heading">Selected work</h2>
+			<article>
+				<h3>
+					<ExternalLink href={paper}>
+						On the boundary conditions and optimization methods in integrated digital image correlation
+					</ExternalLink>
+				</h3>
+				<p class="entry-meta">
+					2018 · S. M. Kleinendorst, B. J. Verhaegh, J. P. M. Hoefnagels, A. Ruybalid, O. van der
+					Sluis and M. G. D. Geers · Springer
+				</p>
+			</article>
+		</section>
+
+		<section aria-labelledby="also-heading">
+			<h2 id="also-heading">Also</h2>
+			<article>
+				<p>
+					Private Pilot Licence. I sing in MAVO, a party band. Home base for all of it: Eindhoven.
+				</p>
+			</article>
+		</section>
+	</article>
+</Base>

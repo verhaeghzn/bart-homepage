@@ -1,0 +1,17 @@
+---
+import ContactIcons from './ContactIcons.astro';
+import { site } from '../data/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+	<div class="shell bar">
+		<p>{site.place}</p>
+		<div class="footer-links">
+			<ContactIcons />
+			<a href="/rss.xml">RSS</a>
+		</div>
+		<p>© {year} {site.name}</p>
+	</div>
+</footer>

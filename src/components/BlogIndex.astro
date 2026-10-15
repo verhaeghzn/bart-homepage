@@ -1,0 +1,29 @@
+---
+import type { Post } from '../lib/posts';
+import type { Topic } from '../data/topics';
+import { topicLabels } from '../data/topics';
+import TopicNav from './TopicNav.astro';
+import PostList from './PostList.astro';
+
+interface Props {
+	posts: Post[];
+	current: 'all' | Topic;
+}
+
+const { posts, current } = Astro.props;
+
+const empty =
+	current === 'all'
+		? 'Nothing published yet.'
+		: `No notes on ${topicLabels[current].toLowerCase()} yet.`;
+---
+
+<header class="page-head">
+	<p class="kicker">Blog</p>
+	<h1>{current === 'all' ? 'Blog' : topicLabels[current]}</h1>
+	<p class="deck">
+		Language models, the code around them, and the occasional publication.
+	</p>
+</header>
+<TopicNav current={current} />
+{posts.length > 0 ? <PostList posts={posts} /> : <p class="empty">{empty}</p>}

@@ -1,0 +1,33 @@
+---
+import type { Topic } from '../data/topics';
+import { topicLabels, topics } from '../data/topics';
+
+interface Props {
+	current: 'all' | Topic;
+}
+
+const { current } = Astro.props;
+
+const items = [
+	{ href: '/blog/', id: 'all' as const, label: 'All' },
+	...topics.map((topic) => ({
+		href: `/blog/topic/${topic}/`,
+		id: topic,
+		label: topicLabels[topic],
+	})),
+];
+---
+
+<nav class="topic-nav" aria-label="Topics">
+	<ul>
+		{
+			items.map((item) => (
+				<li>
+					<a href={item.href} aria-current={item.id === current ? 'page' : undefined}>
+						{item.label}
+					</a>
+				</li>
+			))
+		}
+	</ul>
+</nav>

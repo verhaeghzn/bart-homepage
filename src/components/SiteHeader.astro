@@ -1,0 +1,27 @@
+---
+import { site } from '../data/site';
+
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+
+const items = [
+	{ href: '/blog/', label: 'Blog', current: path === '/blog' || path.startsWith('/blog/') },
+	{ href: '/resume/', label: 'Resume', current: path === '/resume' },
+];
+---
+
+<header class="site-header">
+	<div class="shell bar">
+		<a class="brand" href="/" aria-label={`${site.title}, home`}>
+			<span>{site.title}</span>
+		</a>
+		<nav class="nav" aria-label="Primary">
+			{
+				items.map((item) => (
+					<a href={item.href} aria-current={item.current ? 'page' : undefined}>
+						{item.label}
+					</a>
+				))
+			}
+		</nav>
+	</div>
+</header>

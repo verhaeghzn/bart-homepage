@@ -1,0 +1,100 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import ExternalLink from '../components/ExternalLink.astro';
+import PostList from '../components/PostList.astro';
+import { profiles } from '../data/site';
+import { getPosts } from '../lib/posts';
+import portrait from '../assets/bart-verhaegh.png';
+
+const posts = (await getPosts()).slice(0, 3);
+---
+
+<Base>
+	<div class="home-grid">
+		<div class="rail">
+			<div class="identity">
+				<h1>
+					<span class="line">Bart</span>
+					<span class="line">Verhaegh</span>
+				</h1>
+				<p class="place">Eindhoven</p>
+			</div>
+			<nav class="places" aria-label="Selected links">
+				{
+					profiles.map((profile) => (
+						<ExternalLink href={profile.href} class="practice" me>
+							<span class="practice-body">
+								<span class="practice-main">
+									<span class="practice-name">{profile.name}</span>
+									<span class="practice-domain">{profile.domain}</span>
+								</span>
+								<span class="practice-note">{profile.note}</span>
+							</span>
+							<svg class="arrow" viewBox="0 0 16 16" aria-hidden="true">
+								<path
+									d="M4.5 11.5 L11.5 4.5 M6.5 4.5 H11.5 V9.5"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="1.25"
+								/>
+							</svg>
+						</ExternalLink>
+					))
+				}
+			</nav>
+		</div>
+		<article class="bio">
+			<figure class="portrait">
+				<Image
+					src={portrait}
+					alt="Bart Verhaegh"
+					width={320}
+					widths={[160, 320, 480]}
+					sizes="(min-width: 700px) 11.25rem, 7.75rem"
+					quality="high"
+					priority
+				/>
+			</figure>
+			<p class="standfirst">
+				Hi, I'm Bart. I have two passions, refusing to pick one. Every single day, I try to bring insights
+				from the one to the other.
+			</p>
+			<p>
+				As founder of <ExternalLink href="https://closure.nl/" me>Closure</ExternalLink>, I'm committed
+				to writing software that gives bereaved families less to worry about and more space to grieve.
+				When someone dies, their subscriptions, contracts and accounts live on. Closure lets next of kin
+				report a death once and settle it with more than 1,600 organisations, at no cost to the family.
+				Serving that many organisations and families is only possible by implementing high levels of
+				automation and autonomy.
+			</p>
+			<p>
+				As a PhD researcher in the Mechanics of Materials group at <ExternalLink
+					href="https://research.tue.nl/en/persons/bart-j-verhaegh/"
+					me>TU/e</ExternalLink
+				>, I'm pushing the boundaries of autonomous mechanical experimentation on the microscale;
+				teaching experiments to run themselves, at a speed and accuracy where humans tend to become the
+				limiting factor.
+			</p>
+			<p>
+				Beyond those two, my dad Michel and I build ventures together under <ExternalLink
+					href="https://verhaeghzn.nl/"
+					me>verhaeghzn.nl</ExternalLink
+				>. It's our father-and-son operation where ideas become projects faster than is strictly
+				sensible.
+			</p>
+			<p>
+				And when I'm not working, I'm in the air or on stage: I fly with a Private Pilot Licence (PPL)
+				and sing in MAVO, a party band. Home base for all of it: Eindhoven.
+			</p>
+		</article>
+	</div>
+
+	<section class="band" aria-labelledby="notes-heading">
+		<div class="section-label">
+			<h2 id="notes-heading">Notes</h2>
+			<a href="/blog/">All notes</a>
+		</div>
+		<PostList posts={posts} />
+	</section>
+</Base>

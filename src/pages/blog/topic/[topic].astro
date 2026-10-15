@@ -1,0 +1,27 @@
+---
+import Base from '../../../layouts/Base.astro';
+import BlogIndex from '../../../components/BlogIndex.astro';
+import { topics, topicLabels, type Topic } from '../../../data/topics';
+import { getPosts } from '../../../lib/posts';
+
+export async function getStaticPaths() {
+	return topics.map((topic) => ({
+		params: { topic },
+		props: { topic },
+	}));
+}
+
+interface Props {
+	topic: Topic;
+}
+
+const { topic } = Astro.props;
+const posts = (await getPosts()).filter((post) => post.data.topics.includes(topic));
+---
+
+<Base
+	title={topicLabels[topic]}
+	description={`Notes by Bart Verhaegh on ${topicLabels[topic].toLowerCase()}.`}
+>
+	<BlogIndex posts={posts} current={topic} />
+</Base>
